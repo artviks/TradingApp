@@ -1,0 +1,25 @@
+{% include 'Partials/header.twig' %}
+
+<h2 class="text-lg text-center font-bold m-10">HOME</h2>
+
+{% if not price %}
+    <div class="flex justify-center">
+        <form method="GET" action="search">
+            <input class="py-4 px-6 text-gray-800 leading-tight bg-gray-200 shadow-2xl"
+                   type="text" id="symbol" name="symbol" placeholder="Search">
+        </form>
+    </div>
+{% endif %}
+
+{% if price %}
+    <p>{{ symbol }} {{ price }}</p>
+    <form method="POST" action="buy">
+        <input type="hidden" name="stock" value="{{ symbol }} {{ price }}">
+        <label for="amount">Amount:
+            <input type="number" id="amount" name="amount">
+        </label>
+        <input type="submit" value="Buy">
+    </form>
+{% endif %}
+
+{% include 'Partials/footer.twig' %}

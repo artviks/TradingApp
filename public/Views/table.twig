@@ -1,0 +1,48 @@
+{% include 'Partials/header.twig' %}
+
+<h2 class="text-lg text-center font-bold m-5">PORTFOLIO</h2>
+
+<table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
+    <tr class="text-left border-b border-gray-300">
+        <th class="px-4 py-3">Description</th>
+        <th class="px-4 py-3">Symbol</th>
+        <th class="px-8 py-3">Added</th>
+        <th class="px-4 py-3">Amount</th>
+        <th class="px-4 py-3">Price</th>
+        <th class="px-4 py-3">Current</th>
+        <th class="px-4 py-3">Total</th>
+        <th class="px-4 py-3">Sold</th>
+        <th class="px-4 py-3">Profit</th>
+        <th class="px-4 py-3"></th>
+    </tr>
+    {% for stock in portfolio %}
+        <tr class="bg-gray-600 border-b border-gray-600">
+            <td class="px-4 py-3">{{ stock.description }}</td>
+            <td class="px-4 py-3">{{ stock.symbol }}</td>
+            <td class="px-4 py-3">{{ stock.added }}</td>
+            <td class="px-4 py-3">{{ stock.amount }}</td>
+            <td class="px-4 py-3">{{ stock.price }}</td>
+            <td class="px-4 py-3
+                {% if finnHub.price(stock.symbol)>=stock.price %}
+                    text-green-400
+                {% else %}
+                    text-red-600
+                {% endif %}">
+                {{ finnHub.price(stock.symbol) }}
+            </td>
+            <td class="px-4 py-3">{{ stock.total }}</td>
+            <td class="px-4 py-3">{{ stock.selling_price_total }}</td>
+            <td class="px-4 py-3">{{ stock.profit }}</td>
+            {% if stock.profit == null %}
+            <td>
+                <form method="POST" action="sell">
+                    <input type="hidden" name="stock" value="{{ stock.id }}">
+                    <input type="submit" value="Sell" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+
+{% include 'Partials/footer.twig' %}
