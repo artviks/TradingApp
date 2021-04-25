@@ -31,7 +31,8 @@ class PagesController
     {
         $this->twig->display('table.twig', [
             'portfolio' => $this->service->portfolio(),
-            'finnHub' => $this->stockService
+            'finnHub' => $this->stockService,
+            'balance' => $this->service->balance()
         ]);
     }
 }

@@ -10,6 +10,7 @@ class TransactionService
 {
     private TransactionRepository $repository;
     private StockRepository $stockRepository;
+    private float $balance = 1000;
 
     public function __construct(TransactionRepository $repository, StockRepository $stockRepository)
     {
@@ -44,5 +45,14 @@ class TransactionService
     public function portfolio(): array
     {
         return $this->repository->portfolio();
+    }
+
+    public function balance(): float
+    {
+        foreach ($this->repository->portfolio() as $trans) {
+            $this->balance += $trans['profit'];
+        }
+
+        return $this->balance;
     }
 }
