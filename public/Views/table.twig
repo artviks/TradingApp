@@ -1,6 +1,6 @@
 {% include 'Partials/header.twig' %}
 
-<h2 class="text-lg text-center font-bold m-5">PORTFOLIO</h2>
+<h2 class="text-lg text-center font-bold m-5 text-white">PORTFOLIO</h2>
 
 <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
     <tr class="text-left border-b border-gray-300">
@@ -13,7 +13,6 @@
         <th class="px-4 py-3">Total</th>
         <th class="px-4 py-3">Sold</th>
         <th class="px-4 py-3">Profit</th>
-        <th class="px-4 py-3"></th>
     </tr>
     {% for stock in portfolio %}
         <tr class="bg-gray-600 border-b border-gray-600">
@@ -34,19 +33,19 @@
             <td class="px-4 py-3">{{ stock.selling_price_total }}</td>
             <td class="px-4 py-3">{{ stock.profit }}</td>
             {% if stock.profit == null %}
-            <td>
+
                 <form method="POST" action="sell">
                     <input type="hidden" name="stock" value="{{ stock.id }}">
                     <input type="submit" value="Sell" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                 </form>
-            </td>
+
             {% endif %}
         </tr>
     {% endfor %}
 </table>
 
-<div class="text-right px-20">
-    <p><strong>{{ balance }}</strong></p>
+<div class="text-right pt-5 pr-40 text-white">
+    <p>Wallet: <strong>{{ balance|round(2) }}</strong></p>
 </div>
 
 
